@@ -1,5 +1,5 @@
 import { Add, Remove } from '@material-ui/icons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
 import Announcement from '../components/Announcement';
 import { Footer } from '../components/Footer';
@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 import { Newsletter } from '../components/Newsletter';
 import StripeCheckout from "react-stripe-checkout";
 import { useState } from 'react';
+import { removeProduct } from '../redux/cartRedux';
 
 const KEY = process.env.REACT_APP_STRIPE;
 console.log(KEY);
@@ -143,15 +144,36 @@ const Button = styled.button`
     font-weight:600;
 `;
 
+const Remve = styled.button`    
+   ${'' /*  flex:1;
+    display:flex;
+    flex-direction:column; */}
+    width:100px;
+    height:40px;
+    padding:10px;
+    margin-top:40px;
+    align-items:center;
+    justify-content: center;
+    cursor:pointer;
+    border:${props=>props.type === "filled" && "none"};
+    background-color:${props=>props.type === "filled" ? "black" : "transparent"};
+    color:${props=>props.type === "filled" && "white"};
+`;
+
 export const Cart = () => {
     const cart = useSelector(state=>state.cart);
     const [stripeToken,setStripeToken] = useState(null);
+    const dispatch = useDispatch();
 
     const onToken = (token)=>{
         setStripeToken(token);
     };
 
     console.log(stripeToken);
+    const handleClick =(product)=>{
+        dispatch(removeProduct({...product}));
+    }
+
   return (
     <Container>
         <Navbar/>
@@ -182,7 +204,8 @@ export const Cart = () => {
                             <ProductAmount>{product.quantity}</ProductAmount>
                         </ProductAmountContainer> */}
                         <ProductPrice>{product.price*product.quantity}</ProductPrice>
-                    </PriceDetail>
+                        <Remve onClick={()=>handleClick(product)}>Remove</Remve>
+                    </PriceDetail>                    
                     </Product>
                     ))}
                     <Hr/>
@@ -195,11 +218,11 @@ export const Cart = () => {
                     </SummaryItem>
                     <SummaryItem>
                         <SummaryItemText>Estimated Shipping</SummaryItemText>
-                        <SummaryItemPrice>20 rs</SummaryItemPrice>
+                        <SummaryItemPrice>0 rs</SummaryItemPrice>
                     </SummaryItem>
                     <SummaryItem>
                         <SummaryItemText>Discount</SummaryItemText>
-                        <SummaryItemPrice>-10 rs</SummaryItemPrice>
+                        <SummaryItemPrice>10 rs</SummaryItemPrice>
                     </SummaryItem>
                     <SummaryItem type="total">
                         <SummaryItemText >Total</SummaryItemText>

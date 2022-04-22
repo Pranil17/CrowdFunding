@@ -1,9 +1,10 @@
 import { Badge } from '@material-ui/core';
 import { AccountBoxOutlined, AccountCircleOutlined, AccountCircleRounded, Search, ShoppingCartOutlined } from '@material-ui/icons'
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { logout } from '../redux/apiCalls';
 import {mobile} from "../responsive";
 
 const Container = styled.div`
@@ -52,6 +53,9 @@ const MenuItem = styled.div`
     cursor: pointer;
     margin-left: 25px;
     ${mobile({fontSize : "12px",marginLeft:"10px"})};
+    ${({ disable }) => disable && `
+    background: blue;
+  `}
 `;
 
 const Centre = styled.div`
@@ -64,8 +68,28 @@ const Logo = styled.h1`
     ${mobile({fontSize : "24px"})};
 `;
 
+const Button = styled.button`
+    background: white;
+    border:none;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 25px;
+    &:disabled{
+    color: white;
+    cursor:default;
+  }
+`;
+
 const Navbar = () => {
     const quantity = useSelector(state=>state.cart.quantity);
+    const user = useSelector((state)=>state.user.currentUser);
+    const dispatch = useDispatch();
+    const [state,setState] = useState("");
+
+    const handleClick = (e)=>{
+        logout(dispatch);
+      }
+
   return (
     <Container>
     <Wrapper>
@@ -76,12 +100,17 @@ const Navbar = () => {
                 <Search style={{color:"gray",fontSize:16}}/>
             </SearchContainer>
         </Left>
+        <Link to="/">
         <Centre><Logo>Fund!T</Logo></Centre>
+        </Link>
         <Right>
         <Link to="/register">
-        <MenuItem>Register</MenuItem>
+        <Button disabled={user}>Register</Button>
         </Link>
-        <MenuItem>Sign in</MenuItem>
+        <Link to="/login">
+        <Button disabled={user}>Sign in</Button>
+        </Link>
+        <Button onClick={handleClick} disabled={!user} >Logout</Button>
         <MenuItem>GetFunding</MenuItem>
         <MenuItem>
         <Link to="/cart">

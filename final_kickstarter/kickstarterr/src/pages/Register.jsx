@@ -67,7 +67,7 @@ const Button = styled.button`
 export const Register = () => {
   const dispatch = useDispatch();
     const [user,setUser] = useState({
-      name:"",
+      username:"",
       email:"",
       password: ""
   })
@@ -80,10 +80,13 @@ export const Register = () => {
   }
   //register function 
   const egister = ()=>{
-  const {name,email,password} = user
-  if (name && email && password){
-  axios.post("http://localhost:5000/api/auth/register",user )
+  const {username,email,password} = user
+  if (username && email && password){
+  axios.post("http://localhost:5000/api/auth/register",user)
   .then(res=>console.log(res))
+  .catch(function (error) {
+    console.log(error);
+  });
   }
   else{
     alert("invalid input")
@@ -98,7 +101,7 @@ export const Register = () => {
             <Form>
             <Input placeholder="name" />
             <Input placeholder="lastname" />
-            <Input placeholder="username" name="name" value={user.name} onChange={handleChange} />
+            <Input placeholder="username" name="username" value={user.username} onChange={handleChange} />
             <Input placeholder="email" name="email" value={user.email} onChange={handleChange}/>
             <Input placeholder="password" type="password" name="password" value={user.password} onChange={handleChange} />
             <Input placeholder="confirm password" />
