@@ -67,6 +67,9 @@ const Button = styled.button`
 export const Register = () => {
   const dispatch = useDispatch();
     const [user,setUser] = useState({
+      name:"",
+      contact:"",
+      address:"",
       username:"",
       email:"",
       password: ""
@@ -80,7 +83,7 @@ export const Register = () => {
   }
   //register function 
   const egister = ()=>{
-  const {username,email,password} = user;
+  const {name,contact,address,username,email,password} = user;
   if (username && email && password){
   axios.post("http://localhost:5000/api/auth/register",user)
   .then(res=>console.log(res))
@@ -101,8 +104,9 @@ export const Register = () => {
             </Link>
             <Title>CREATE AN ACCOUNT</Title>
             <Form>
-            <Input placeholder="name" />
-            <Input placeholder="lastname" />
+            <Input placeholder="name" name="name" value={user.name} onChange={handleChange} />
+            <Input placeholder="contact" name="contact" value={user.contact} onChange={handleChange} />
+            <Input placeholder="address" name="address" value={user.address} onChange={handleChange} />
             <Input placeholder="username" name="username" value={user.username} onChange={handleChange} />
             <Input placeholder="email" name="email" value={user.email} onChange={handleChange}/>
             <Input placeholder="password" type="password" name="password" value={user.password} onChange={handleChange} />
