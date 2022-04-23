@@ -1,6 +1,7 @@
 import { Input } from "@material-ui/core";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components"
 import Announcement from "../components/Announcement";
@@ -98,6 +99,7 @@ export const Product = () => {
     const location = useLocation();
     const id = location.pathname.split("/")[2];
     const [product, setProduct] = useState({});
+    const user = useSelector((state)=>state.user.currentUser);
     const dispatch = useDispatch();
 
     useEffect(()=>{
@@ -114,20 +116,107 @@ export const Product = () => {
     var count_02 = 0;
     var count_03 = 0;
 
-    const handleClick_01 = (reward)=>{
+    const handleClick_01 = (reward,user)=>{
         //update cart
-        count_01++; 
-        dispatch(addProduct({...product,quantity:count_01,price:reward}));
+        count_01++;
+        axios({
+            method:'put',
+            url:"http://localhost:5000/api/carts/add/" + user._id,
+            data:{
+                _id:user._id,
+                products:{
+                    productId:product._id,
+                    img:product.img,
+                    title:product.title,
+                    quantity:count_01,
+                    price:reward
+                }
+            }
+            }); 
+        axios({
+            method:'post',
+            url:"http://localhost:5000/api/carts",
+            data:{
+                _id:user._id,
+                products:{
+                    productId:product._id,
+                    img:product.img,
+                    title:product.title,
+                    quantity:count_01,
+                    price:reward
+                }
+            }
+        });
+         
+        dispatch(addProduct({productId:product._id,img:product.img,title:product.title,quantity:count_01,price:reward}));
     };
-    const handleClick_02 = (reward)=>{
+    const handleClick_02 = (reward,user)=>{
         //update cart
         count_02++;
-        dispatch(addProduct({...product,quantity:count_02,price:reward}));
+        axios({
+            method:'put',
+            url:"http://localhost:5000/api/carts/add/" + user._id,
+            data:{
+                _id:user._id,
+                products:{
+                    productId:product._id,
+                    img:product.img,
+                    title:product.title,
+                    quantity:count_02,
+                    price:reward
+                }
+            }
+            }); 
+        axios({
+            method:'post',
+            url:"http://localhost:5000/api/carts",
+            data:{
+                _id:user._id,
+                products:{
+                    productId:product._id,
+                    img:product.img,
+                    title:product.title,
+                    quantity:count_02,
+                    price:reward
+                }
+            }
+        });
+        
+        dispatch(addProduct({productId:product._id,img:product.img,title:product.title,quantity:count_01,price:reward}));
     };
-    const handleClick_03 = (reward)=>{
+    const handleClick_03 = (reward,user)=>{
         //update cart
         count_03++;
-        dispatch(addProduct({...product,quantity:count_03,price:reward}));
+        axios({
+            method:'put',
+            url:"http://localhost:5000/api/carts/add/" + user._id,
+            data:{
+                _id:user._id,
+                products:{
+                    productId:product._id,
+                    img:product.img,
+                    title:product.title,
+                    quantity:count_03,
+                    price:reward
+                }
+            }
+            }); 
+        axios({
+            method:'post',
+            url:"http://localhost:5000/api/carts",
+            data:{
+                _id:user._id,
+                products:{
+                    productId:product._id,
+                    img:product.img,
+                    title:product.title,
+                    quantity:count_03,
+                    price:reward
+                }
+            }
+        });
+        
+        dispatch(addProduct({productId:product._id,img:product.img,title:product.title,quantity:count_01,price:reward}));
     };
 
   return (
@@ -150,17 +239,17 @@ export const Product = () => {
                     <Reward>
                         <RewardTitle>{product.reward_one}</RewardTitle>
                         <RewardDesc>{product.reward_one_desc}</RewardDesc>
-                        <Button onClick={()=>handleClick_01(product.reward_one)}>Fund</Button>
+                        <Button onClick={()=>handleClick_01(product.reward_one,user)}>Fund</Button>
                     </Reward>
                     <Reward>
                         <RewardTitle>{product.reward_two}</RewardTitle>
                         <RewardDesc>{product.reward_two_desc}</RewardDesc>
-                        <Button onClick={() => handleClick_02(product.reward_two)}>Fund</Button>
+                        <Button onClick={() => handleClick_02(product.reward_two,user)}>Fund</Button>
                     </Reward>
                     <Reward>
                         <RewardTitle>{product.reward_three}</RewardTitle>
                         <RewardDesc>{product.reward_three_desc}</RewardDesc>
-                        <Button onClick={() => handleClick_03(product.reward_three)}>Fund</Button>
+                        <Button onClick={() => handleClick_03(product.reward_three,user)}>Fund</Button>
                     </Reward>
         </RewardContainer>
         <Content>

@@ -1,4 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const userSlice = createSlice({
     name: "user",
@@ -13,7 +15,7 @@ const userSlice = createSlice({
         },
         loginSuccess:(state,action)=>{
             state.isFetching=false;
-            state.currentUser=action.payload
+            state.currentUser=action.payload;
         },
         loginFailure:(state)=>{
             state.isFetching=false;

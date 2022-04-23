@@ -12,6 +12,7 @@ import {
   Link
 } from "react-router-dom"
 import { useSelector } from "react-redux";
+import { Userprofile } from "./pages/Userprofile";
 
 const App = () => {
   const user = useSelector((state)=>state.user.currentUser);
@@ -36,6 +37,9 @@ const App = () => {
       <Route path='/register'>
         {/* {user ? <Redirect to="/"/> : <Register/>} */}
         <Register/>
+      </Route>
+      <Route path='/profile'>
+        <Userprofile/>
       </Route>
       </Switch>
     </Router>

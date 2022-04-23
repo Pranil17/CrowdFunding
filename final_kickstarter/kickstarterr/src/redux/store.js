@@ -11,8 +11,7 @@ import {
     PURGE,
     REGISTER,
   } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import { Store } from "@material-ui/icons";
+import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
     key: 'root',

@@ -8,7 +8,7 @@ const {
 const router = require("express").Router();
 
 //Create
-router.post("/", verifyToken, async(req,res)=>{
+router.post("/"/* , verifyToken */, async(req,res)=>{
     const newCart = new Cart(req.body)
 
     try{
@@ -20,7 +20,7 @@ router.post("/", verifyToken, async(req,res)=>{
 });
 
 //UPDATE
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
+/* router.put("/:id", verifyTokenAndAuthorization , async (req, res) => {
   try {
     const updatedCart = await Cart.findByIdAndUpdate(
       req.params.id,
@@ -33,7 +33,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-}); 
+});  */
 
 //Delete
 router.delete("/:id", verifyTokenAndAuthorization, async(req,res)=>{
@@ -66,5 +66,28 @@ router.get("/", verifyTokenAndAdmin, async (req,res)=>{
     }
 });
 
+router.put("/add/:id"/* , verifyTokenAndAuthorization */, async (req, res) => {
+  try {
+    const updatedCart = await Cart.findOneAndUpdate(
+      {userId:req.params.userId},
+      {$push:{products:req.body.products}}
+    );
+    res.status(200).json(updatedCart);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+router.put("/remove/:id"/* , verifyTokenAndAuthorization */, async (req, res) => {
+  try {
+    const updatedCart = await Cart.findOneAndDelete(
+      {userId:req.params.userId},
+      {products:req.body.products._id}
+    );
+    console.log(req.params.id)
+    res.status(200).json(updatedCart);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}); 
 
 module.exports = router; 

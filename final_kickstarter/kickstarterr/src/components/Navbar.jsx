@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { logout } from '../redux/apiCalls';
+import { logoutProduct } from '../redux/cartRedux';
 import {mobile} from "../responsive";
 
 const Container = styled.div`
@@ -83,12 +84,23 @@ const Button = styled.button`
 const Navbar = () => {
     const quantity = useSelector(state=>state.cart.quantity);
     const user = useSelector((state)=>state.user.currentUser);
+    const cart = useSelector(state=>state.cart);
     const dispatch = useDispatch();
     const [state,setState] = useState("");
 
     const handleClick = (e)=>{
+        dispatch(logoutProduct(cart.products));
         logout(dispatch);
       }
+
+      const ConditionalLink = ({ children, to, condition }) => (!!condition && to)
+      ? <Link to={to}>{children}</Link>
+      : <Link to="/cart">{children}</Link>;
+      
+      const ConditionalLink01 = ({ children, to, condition }) => (!!condition && to)
+      ? <Link to={to}>{children}</Link>
+      : <Link to="/profile">{children}</Link>; 
+
 
   return (
     <Container>
@@ -110,17 +122,21 @@ const Navbar = () => {
         <Link to="/login">
         <Button disabled={user}>Sign in</Button>
         </Link>
+        <Link to="/">
         <Button onClick={handleClick} disabled={!user} >Logout</Button>
+        </Link>
         <MenuItem>GetFunding</MenuItem>
         <MenuItem>
-        <Link to="/cart">
+        <ConditionalLink to="/login" condition={!user}>
         <Badge badgeContent={quantity} color="secondary">
             <ShoppingCartOutlined/>
         </Badge>
-        </Link>
+        </ConditionalLink>
         </MenuItem>
         <MenuItem>
+        <ConditionalLink01 to="/login" condition={!user}>
             <AccountCircleOutlined/>
+        </ConditionalLink01>    
         </MenuItem>
         </Right>
     </Wrapper>

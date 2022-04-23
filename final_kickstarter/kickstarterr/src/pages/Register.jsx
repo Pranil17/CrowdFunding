@@ -80,7 +80,7 @@ export const Register = () => {
   }
   //register function 
   const egister = ()=>{
-  const {username,email,password} = user
+  const {username,email,password} = user;
   if (username && email && password){
   axios.post("http://localhost:5000/api/auth/register",user)
   .then(res=>console.log(res))
@@ -96,7 +96,9 @@ export const Register = () => {
   return (
     <Container>
         <Wrapper>
+            <Link to="/">
             <Logo>Fund!T</Logo>
+            </Link>
             <Title>CREATE AN ACCOUNT</Title>
             <Form>
             <Input placeholder="name" />
@@ -104,7 +106,7 @@ export const Register = () => {
             <Input placeholder="username" name="username" value={user.username} onChange={handleChange} />
             <Input placeholder="email" name="email" value={user.email} onChange={handleChange}/>
             <Input placeholder="password" type="password" name="password" value={user.password} onChange={handleChange} />
-            <Input placeholder="confirm password" />
+            <Input placeholder="confirm password" type="password" />
             <Agreement>
                 By creating an account you are agreeing to terms and conditions.
             </Agreement>

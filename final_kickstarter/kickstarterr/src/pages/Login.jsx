@@ -1,5 +1,7 @@
+import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components"
 import { login } from "../redux/apiCalls";
 
@@ -62,7 +64,7 @@ const Button = styled.button`
   }
 `;
 
-const Link = styled.a`
+const Linkk = styled.a`
   margin:5px 0px;
   font-size:12px;
   text-decoration: underline;
@@ -87,7 +89,9 @@ export const Login = () => {
   return (
     <Container>
       <Wrapper>
+            <Link to="/">
             <Logo>Fund!T</Logo>
+            </Link>
             <Title>SIGN IN</Title>
             <Form>
             <Input placeholder="username" 
@@ -99,8 +103,10 @@ export const Login = () => {
             />
             <Button onClick={handleClick} disabled={isFetching}>Login</Button>
             {error &&<Error>Something went wrong</Error>}
-            <Link>Forgot Password?</Link>
-            <Link>CREATE NEW ACCOUNT</Link>
+            <Linkk>Forgot Password?</Linkk>
+            <Link to="/register">
+            <Linkk>CREATE NEW ACCOUNT</Linkk>
+            </Link>
             </Form>
             
         </Wrapper>

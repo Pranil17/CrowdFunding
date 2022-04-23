@@ -8,9 +8,9 @@ import { Newsletter } from '../components/Newsletter';
 import StripeCheckout from "react-stripe-checkout";
 import { useState } from 'react';
 import { removeProduct } from '../redux/cartRedux';
+import axios from 'axios';
 
 const KEY = process.env.REACT_APP_STRIPE;
-console.log(KEY);
 
 const Container = styled.div``;
 
@@ -162,6 +162,7 @@ const Remve = styled.button`
 
 export const Cart = () => {
     const cart = useSelector(state=>state.cart);
+    const user = useSelector((state)=>state.user.currentUser);
     const [stripeToken,setStripeToken] = useState(null);
     const dispatch = useDispatch();
 
@@ -169,10 +170,12 @@ export const Cart = () => {
         setStripeToken(token);
     };
 
-    console.log(stripeToken);
     const handleClick =(product)=>{
-        dispatch(removeProduct({...product}));
-    }
+        dispatch(removeProduct({productId:product._id,img:product.img,title:product.title,quantity:product.quantity,price:product.price}));
+    };
+
+    console.log(cart);
+    
 
   return (
     <Container>
@@ -196,19 +199,19 @@ export const Cart = () => {
                         <Image src={product.img}/>
                         <Details>
                             <ProductName><b>Product:</b>{product.title}</ProductName>
-                            <ProductId><b>ID:</b> {product._id}</ProductId>
+                            <ProductId><b>ID:</b> {product.productId}</ProductId>
                         </Details>
                     </ProductDetail>
                     <PriceDetail>
                        {/*  <ProductAmountContainer>
                             <ProductAmount>{product.quantity}</ProductAmount>
                         </ProductAmountContainer> */}
-                        <ProductPrice>{product.price*product.quantity}</ProductPrice>
+                        <ProductPrice>{product.price}</ProductPrice>
                         <Remve onClick={()=>handleClick(product)}>Remove</Remve>
-                    </PriceDetail>                    
+                    </PriceDetail>
+                    <Hr/>                    
                     </Product>
-                    ))}
-                    <Hr/>
+                    ))}   
                 </Info>
                 <Summary>
                     <SummaryTitle>ORDER SUMMARY</SummaryTitle>
