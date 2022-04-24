@@ -8,7 +8,7 @@ const {
 const router = require("express").Router();
 
 //Create
-router.post("/", verifyToken, async(req,res)=>{
+router.post("/"/* , verifyToken */, async(req,res)=>{
     const newOrder = new Order(req.body)
 
     try{
@@ -46,7 +46,7 @@ router.delete("/:id", verifyTokenAndAdmin, async(req,res)=>{
 });
 
 //Get user ORDERS
-router.get("/find/:userId",verifyTokenAndAuthorization, async(req,res)=>{
+router.get("/find/:userId"/* ,verifyTokenAndAuthorization */, async(req,res)=>{
   try{
     const orders = await Order.find({userId: req.params.userId});
     res.status(200).json(orders);

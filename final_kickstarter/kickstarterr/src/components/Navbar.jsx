@@ -99,7 +99,11 @@ const Navbar = () => {
       
       const ConditionalLink01 = ({ children, to, condition }) => (!!condition && to)
       ? <Link to={to}>{children}</Link>
-      : <Link to="/profile">{children}</Link>; 
+      : <Link to="/profile">{children}</Link>;
+      
+      const ConditionalLink02 = ({ children, to, condition }) => (!!condition && to)
+      ? <Link to={to}>{children}</Link>
+      : <Link to="/order">{children}</Link>;
 
 
   return (
@@ -111,11 +115,14 @@ const Navbar = () => {
                 <Input placeholder="search"/>
                 <Search style={{color:"gray",fontSize:16}}/>
             </SearchContainer>
+            <ConditionalLink02 to="/login" condition={!user}>
+                <Button>MyFundedProjects</Button>
+            </ConditionalLink02> 
         </Left>
         <Link to="/">
         <Centre><Logo>Fund!T</Logo></Centre>
         </Link>
-        <Right>
+        <Right>         
         <Link to="/register">
         <Button disabled={user}>Register</Button>
         </Link>

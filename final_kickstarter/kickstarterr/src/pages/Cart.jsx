@@ -8,6 +8,7 @@ import { Newsletter } from '../components/Newsletter';
 import StripeCheckout from "react-stripe-checkout";
 import { useState } from 'react';
 import { removeProduct } from '../redux/cartRedux';
+import QueryString from 'qs';
 import axios from 'axios';
 
 const KEY = process.env.REACT_APP_STRIPE;
@@ -174,7 +175,18 @@ export const Cart = () => {
         dispatch(removeProduct({productId:product._id,img:product.img,title:product.title,quantity:product.quantity,price:product.price}));
     };
 
-    console.log(cart);
+
+    const checkout = ()=>{
+        let params = {
+            userId:user._id,
+            products:cart.products
+        }
+        axios({
+            method:'post',
+            url:"http://localhost:5000/api/orders",
+            data:params
+        });
+    };
     
 
   return (
@@ -240,7 +252,7 @@ export const Cart = () => {
                     token={onToken}
                     stripeKey={KEY}
                     >
-                    <Button>CHECKOUT NOW</Button>
+                    <Button onClick={checkout}>CHECKOUT NOW</Button>
                     </StripeCheckout>
                 </Summary>
             </Bottom>

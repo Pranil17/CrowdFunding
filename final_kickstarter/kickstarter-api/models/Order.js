@@ -5,12 +5,14 @@ const OrderSchema = new mongoose.Schema({
     products:[
         {
             productId:{type:String,},
-            quantity:{type:Number,default:1,}
+            img:{type:String},
+            title:{type:String},
+            quantity:{type:Number},
+            price:{type:Number,},
         }
     ],
-    amount:{type:Number,required: true},
-    address:{ type: Object},
-    status:{type: String,default:"pending"},
+    /* quantity:{type:Number,},
+    total:{type:Number,}, */
 },{timestamps:true});
 
 module.exports = mongoose.model("Order", OrderSchema);
