@@ -45,7 +45,7 @@ export const Userprofile = () => {
                                     <h6>
                                         Funder
                                     </h6>
-                                    <p class="proile-rating">Reward points : <span>0</span></p>
+                                    <p class="proile-rating">Reward points : <span>0</span></p><Link to="/redeem"><button>redeem</button></Link>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>

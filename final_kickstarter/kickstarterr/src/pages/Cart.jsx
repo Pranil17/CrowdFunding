@@ -162,10 +162,13 @@ const Remve = styled.button`
 `;
 
 export const Cart = () => {
+    const total = useSelector(state=>state.cart.total);
     const cart = useSelector(state=>state.cart);
     const user = useSelector((state)=>state.user.currentUser);
     const [stripeToken,setStripeToken] = useState(null);
     const dispatch = useDispatch();
+
+    console.log(total);
 
     const onToken = (token)=>{
         setStripeToken(token);
