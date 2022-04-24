@@ -1,10 +1,10 @@
 .userList {
-  flex: 4;
+  flex: 1;
 }
 
 .userListUser {
   display: flex;
-  align-items: center;
+  align-items: left;
 }
 
 .userListImg {

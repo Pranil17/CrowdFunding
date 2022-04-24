@@ -9,19 +9,8 @@ export default function Topbar() {
         <div className="topLeft">
           <span className="logo">Fund!T</span>
         </div>
-        <div className="topRight">
-          <div className="topbarIconContainer">
-            <NotificationsNone />
-            <span className="topIconBadge">2</span>
-          </div>
-          <div className="topbarIconContainer">
-            <Language />
-            <span className="topIconBadge">2</span>
-          </div>
-          <div className="topbarIconContainer">
-            <Settings />
-          </div>
-        </div>
+        
+        
       </div>
     </div>
   );

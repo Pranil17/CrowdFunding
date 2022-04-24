@@ -32,7 +32,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 
 
 //Delete
-router.delete("/:id", verifyTokenAndAuthorization, async(req,res)=>{
+router.delete("/:id"/* , verifyTokenAndAuthorization */, async(req,res)=>{
   try{
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json("user deleted");
@@ -53,7 +53,7 @@ router.get("/find/:id", verifyTokenAndAdmin, async(req,res)=>{
 });
 
 //Get All user
-router.get("/", verifyTokenAndAdmin, async(req,res)=>{
+router.get("/"/* , verifyTokenAndAdmin */, async(req,res)=>{
   try{
     const users = await User.find();
     res.status(200).json(users);
