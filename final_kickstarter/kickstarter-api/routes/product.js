@@ -8,15 +8,18 @@ const {
 const router = require("express").Router();
 
 //Create
-router.post("/", verifyTokenAndAdmin, async(req,res)=>{
-    const newProduct = new Product(req.body)
+router.post("/", async(req,res)=>{
+  console.log('================', req.body)
+  const newProduct = new Product(req.body)
 
-    try{
-        const savedProduct = await newProduct.save();
-        res.status(200).json(savedProduct);
-    }catch(err){
-        res.status(500).json(err);
-    }
+  try{
+      const savedProduct = await newProduct.save();
+      res.status(200).json(savedProduct);
+      
+  }catch(err){
+      res.status(500).json(err);
+  }
+  
 });
 
 //UPDATE

@@ -9,7 +9,7 @@ import { logoutProduct } from '../redux/cartRedux';
 import {mobile} from "../responsive";
 
 const Container = styled.div`
-    height: 60px;
+    height: 120px;
     ${mobile({height : "50px"})};
 `;
 const Wrapper = styled.div`
@@ -103,26 +103,23 @@ const Navbar = () => {
       
       const ConditionalLink02 = ({ children, to, condition }) => (!!condition && to)
       ? <Link to={to}>{children}</Link>
-      : <Link to="/order">{children}</Link>;
+      : <Link to="/getfunding">{children}</Link>;
 
 
   return (
     <Container>
     <Wrapper>
         <Left>
-            <Language>EN</Language>
-            <SearchContainer>
-                <Input placeholder="search"/>
-                <Search style={{color:"gray",fontSize:16}}/>
-            </SearchContainer>
-            <ConditionalLink02 to="/login" condition={!user}>
-                <Button>MyFundedProjects</Button>
-            </ConditionalLink02> 
+        <ConditionalLink02 style={{textDecoration:"none", color:"black"}} to='/login' condition={!user}>
+            <MenuItem style={{textDecoration:"none", color:"black"}}>Start a Project</MenuItem>
+        </ConditionalLink02>
         </Left>
-        <Link to="/">
+        
+        <Link style={{textDecoration:"none",color:"black"}} to="/">
         <Centre><Logo>Fund!T</Logo></Centre>
         </Link>
-        <Right>         
+        
+        <Right>
         <Link to="/register">
         <Button disabled={user}>Register</Button>
         </Link>
@@ -132,7 +129,7 @@ const Navbar = () => {
         <Link to="/">
         <Button onClick={handleClick} disabled={!user} >Logout</Button>
         </Link>
-        <MenuItem>GetFunding</MenuItem>
+        
         <MenuItem>
         <ConditionalLink to="/login" condition={!user}>
         <Badge badgeContent={quantity} color="secondary">
@@ -147,6 +144,15 @@ const Navbar = () => {
         </MenuItem>
         </Right>
     </Wrapper>
+    <Wrapper>
+        <Centre>
+            <Link to='/products/Charity'><Button style={{color:"black"}}>Charity</Button></Link>
+            <Link to='/products/Technology'><Button style={{color:"black"}}>Technology</Button></Link>
+            <Link to='/products/Fashion'><Button style={{color:"black"}}>Fashion</Button></Link>
+        
+        </Centre> 
+    </Wrapper><hr/>
+  
     </Container>
   )
 }

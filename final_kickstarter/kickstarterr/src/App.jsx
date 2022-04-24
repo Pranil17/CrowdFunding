@@ -14,6 +14,7 @@ import {
 import { useSelector } from "react-redux";
 import { Userprofile } from "./pages/Userprofile";
 import { Myorders } from "./pages/Myorders";
+import GetFunding from "./pages/GetFunding";
 
 const App = () => {
   const user = useSelector((state)=>state.user.currentUser);
@@ -44,6 +45,9 @@ const App = () => {
       </Route>
       <Route path='/order'>
         <Myorders/>
+      </Route>
+      <Route path='/getfunding'>
+        <GetFunding/>
       </Route>
       </Switch>
     </Router>

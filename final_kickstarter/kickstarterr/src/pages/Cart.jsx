@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar';
 import { Newsletter } from '../components/Newsletter';
 import StripeCheckout from "react-stripe-checkout";
 import { useState } from 'react';
-import { removeProduct } from '../redux/cartRedux';
+import { logoutProduct, removeProduct } from '../redux/cartRedux';
 import QueryString from 'qs';
 import axios from 'axios';
 
@@ -186,6 +186,7 @@ export const Cart = () => {
             url:"http://localhost:5000/api/orders",
             data:params
         });
+        dispatch(logoutProduct(cart.products));
     };
     
 
